@@ -1,17 +1,17 @@
 package main
 
 import (
-	"encoding/base64"
 	"log"
 	"net/http"
 )
 
 func handleFacebook(w http.ResponseWriter, r *http.Request) {
+	//Code grabbed when logging into facebook
 	code := r.URL.Query().Get("code")
-	url := []byte("https://graph.facebook.com/v2.3/oauth/access_token?client_id=1698453937058092&redirect_uri=http://zacc.xyz:1337/facebook&client_secret=77d2a0169b92e291bd1a61837953973b&code=" + code)
-	str := base64.StdEncoding.EncodeToString(url)
+	//Access token using code making this call
+	accessTokReq := "https://graph.facebook.com/v2.3/oauth/access_token?client_id=1698453937058092&redirect_uri=http://zacc.xyz:1337/facebook&client_secret=77d2a0169b92e291bd1a61837953973b&code=" + code
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", str, nil)
+	req, err := http.NewRequest("GET", accessTokReq, nil)
 	if err != nil {
 		panic(err)
 	}
