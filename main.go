@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"log"
 	"net/http"
 )
@@ -9,21 +8,17 @@ import (
 func sendCode(w http.ResponseWriter, r *http.Request) {
 	code := r.URL.Query().Get("code")
 	client := &http.Client{}
-	var jsonStr = []byte("grant_type=authorization_code&redirect_uri=http://zacc.xyz:8000&code=" + code)
-	req, err := http.NewRequest("POST", "https://hackillinois.climate.com/api/oauth/token", bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest("GET", "https://graph.facebook.com/v2.3/oauth/access_token?client_id=1698453937058092&redirect_uri=http://zacc.xyz/fbtoken&client_secret=77d2a0169b92e291bd1a61837953973b&code="+code, nil)
 	if err != nil {
 		panic(err)
 	}
-	req.Header.Set("Authorization", "Basic ZHBxazVzbXBxMDM5Mmo6dDB0czB0YWdvcm05bnExdjZzbW10dnBxYzI=")
-	req.Header.Set("content-type", "application/x-www-form-urlencoded")
-	req.Header.Set("Accept", "*/*")
-	res, err1 := client.Do(req)
+	resp, err1 := client.Do(req)
 	if err1 != nil {
 		panic(err)
 	}
-	defer res.Body.Close()
-	log.Println(res)
-	log.Println(res.Body)
+	defer resp.Body.Close()
+	log.Println(resp.Body)
+	log.Println(resp)
 }
 
 func dashHandler(w http.ResponseWriter, r *http.Request) {
@@ -31,7 +26,6 @@ func dashHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleFacebook(w http.ResponseWriter, r *http.Request) {
-	log.Print("420")
 	code := r.URL.Query().Get("code")
 	log.Print(code)
 }
