@@ -9,7 +9,7 @@ func handleFacebook(w http.ResponseWriter, r *http.Request) {
 	code := r.URL.Query().Get("code")
 	log.Print(code)
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "https://graph.facebook.com/v2.3/oauth/access_token?client_id=1698453937058092&redirect_uri=http://zacc.xyz/fbtoken&client_secret=77d2a0169b92e291bd1a61837953973b&code="+code, nil)
+	req, err := http.NewRequest("GET", "https://graph.facebook.com/v2.3/oauth/access_token?client_id=1698453937058092&redirect_uri=http://zacc.xyz/facebook&client_secret=77d2a0169b92e291bd1a61837953973b&code="+code, nil)
 	if err != nil {
 		panic(err)
 	}
