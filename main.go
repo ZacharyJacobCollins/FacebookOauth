@@ -26,7 +26,7 @@ func handleFacebook(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	log.Print("starting server...")
-	http.HandleFunc("/facebook/", handleFacebook)
+	http.HandleFunc("/facebook", handleFacebook)
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 	http.ListenAndServe(":1337", nil)
 }
