@@ -8,7 +8,7 @@ import (
 
 func handleFacebook(w http.ResponseWriter, r *http.Request) {
 	code := r.URL.Query().Get("code")
-	url := []byte("https://graph.facebook.com/v2.3/oauth/access_token?client_id=1698453937058092&redirect_uri=http://zacc.xyz:1337/facebook/&client_secret=77d2a0169b92e291bd1a61837953973b&code=" + code)
+	url := []byte("https://graph.facebook.com/v2.3/oauth/access_token?client_id=1698453937058092&redirect_uri=http://zacc.xyz:1337/facebook&client_secret=77d2a0169b92e291bd1a61837953973b&code=" + code)
 	str := base64.StdEncoding.EncodeToString(url)
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", str, nil)
