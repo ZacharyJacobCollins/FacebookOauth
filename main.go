@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -22,10 +21,9 @@ func handleFacebook(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	defer resp.Body.Close()
+	//gets the byte array of the
 	contents, err := ioutil.ReadAll(resp.Body)
-	n := bytes.IndexByte(contents, 0)
-	s := string(contents[:n])
-	log.Println(s)
+	log.Println(string(contents))
 }
 
 func main() {
