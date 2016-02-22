@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -22,8 +23,8 @@ func handleFacebook(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	defer resp.Body.Close()
-	log.Println(resp.Body)
-	log.Println(resp)
+	contents, err := ioutil.ReadAll(resp.Body)
+	log.Println(contents)
 }
 
 func main() {
