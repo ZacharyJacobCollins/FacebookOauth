@@ -5,8 +5,9 @@ import (
 	"net/http"
 )
 
-func sendCode(w http.ResponseWriter, r *http.Request) {
+func handleFacebook(w http.ResponseWriter, r *http.Request) {
 	code := r.URL.Query().Get("code")
+	log.Print(code)
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", "https://graph.facebook.com/v2.3/oauth/access_token?client_id=1698453937058092&redirect_uri=http://zacc.xyz/fbtoken&client_secret=77d2a0169b92e291bd1a61837953973b&code="+code, nil)
 	if err != nil {
@@ -19,15 +20,6 @@ func sendCode(w http.ResponseWriter, r *http.Request) {
 	defer resp.Body.Close()
 	log.Println(resp.Body)
 	log.Println(resp)
-}
-
-func dashHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "./index.html")
-}
-
-func handleFacebook(w http.ResponseWriter, r *http.Request) {
-	code := r.URL.Query().Get("code")
-	log.Print(code)
 }
 
 func main() {
